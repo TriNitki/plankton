@@ -1,5 +1,6 @@
 package ru.trinitki.shift.intensive.dto;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Size;
 
@@ -13,11 +14,15 @@ enum Replay {
 }
 
 public class EventDto {
+    @JsonProperty("date")
     private Date date;
+    @JsonProperty("time")
     private Time time;
+    @JsonProperty("description")
     @NotEmpty
     @Size(max = 20)
     private String description;
+    @JsonProperty("replay")
     private Replay replay;
 
     public EventDto(Date date, Time time, String description, Replay replay) {

@@ -1,5 +1,7 @@
 package ru.trinitki.shift.intensive.controller;
 
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
@@ -16,6 +18,9 @@ import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 @RestController
 @RequestMapping(value = "api/event", produces = APPLICATION_JSON_VALUE)
 public class EventController {
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Ивент был создан")
+    })
     @PostMapping(consumes = APPLICATION_JSON_VALUE)
     public ResponseEntity<EventIdDto> create(@Valid @RequestBody EventDto event) {
         return ResponseEntity.ok(Mocks.event(event));
