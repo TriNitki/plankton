@@ -1,11 +1,11 @@
-package ru.trinitki.shift.intensive.dto;
+package ru.trinitki.shift.intensive.events.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Size;
 
-import java.sql.Time;
-import java.util.Date;
+import java.time.LocalDate;
+import java.time.LocalTime;
 
 enum Replay {
     DAILY,
@@ -13,11 +13,11 @@ enum Replay {
     CUSTOM
 }
 
-public class EventDto {
+public class RequestEventDto {
     @JsonProperty("date")
-    private Date date;
+    private LocalDate date;
     @JsonProperty("time")
-    private Time time;
+    private LocalTime time;
     @JsonProperty("description")
     @NotEmpty
     @Size(max = 20)
@@ -25,26 +25,26 @@ public class EventDto {
     @JsonProperty("replay")
     private Replay replay;
 
-    public EventDto(Date date, Time time, String description, Replay replay) {
+    public RequestEventDto(LocalDate date, LocalTime time, String description, Replay replay) {
         this.date = date;
         this.time = time;
         this.description = description;
         this.replay = replay;
     }
 
-    public Date getDate() {
+    public LocalDate getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(LocalDate date) {
         this.date = date;
     }
 
-    public Time getTime() {
+    public LocalTime getTime() {
         return time;
     }
 
-    public void setTime(Time time) {
+    public void setTime(LocalTime time) {
         this.time = time;
     }
 
