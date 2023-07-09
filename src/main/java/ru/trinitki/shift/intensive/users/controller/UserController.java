@@ -52,7 +52,7 @@ public class UserController {
             @ApiResponse(responseCode = "500", description = "api.plankton.error.server", content = {@Content})
     })
     @GetMapping(value = "/user/{id}")
-    public ResponseEntity<RetrieveUserDto> retrieve(@PathVariable UUID id) {
+    public ResponseEntity<RetrieveResponseDto> retrieve(@PathVariable UUID id) {
         return ResponseEntity.ok(Mocks.userRetrieve(id));
     }
 
@@ -66,7 +66,7 @@ public class UserController {
             @ApiResponse(responseCode = "500", description = "api.plankton.error.server", content = {@Content})
     })
     @PatchMapping(value = "/user/{id}")
-    public ResponseEntity<UpdateUserDto> update(@PathVariable UUID id, @Valid @RequestBody UpdateUserDto user) {
+    public ResponseEntity<UpdateRequestDto> update(@PathVariable UUID id, @Valid @RequestBody UpdateRequestDto user) {
         return ResponseEntity.ok(user);
     }
 
