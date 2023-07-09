@@ -1,3 +1,10 @@
+spring:
+  cassandra:
+    keyspace-name: plankton
+    username: cassandra
+    password: cassandra
+    local-datacenter: dc1
+
 springdoc:
   use-management-port: true
 
