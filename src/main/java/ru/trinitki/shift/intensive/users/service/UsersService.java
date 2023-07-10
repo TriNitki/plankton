@@ -9,7 +9,7 @@ public interface UsersService {
 
     LogInResponseDto login(LogInRequestDto user);
 
-    RetrieveResponseDto find(UUID id);
+    RetrieveResponseDto find(UUID id, String token);
 
-    UpdateResponseDto update(UUID id, UpdateRequestDto updateUser);
+    UpdateResponseDto update(UUID id, UpdateRequestDto updateUser, String token);
 }
