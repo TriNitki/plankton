@@ -10,7 +10,7 @@ import java.util.UUID;
 @Table(value = "users")
 public class Users {
     @PrimaryKey
-    private Key key = new Key();
+    private final Key key = new Key();
     @Column(value = "access_token")
     private String accessToken;
     @Column(value = "full_name")
