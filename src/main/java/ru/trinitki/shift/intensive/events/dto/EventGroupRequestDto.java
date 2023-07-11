@@ -1,34 +1,27 @@
 package ru.trinitki.shift.intensive.events.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.Size;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.UUID;
 
-enum Replay {
-    DAILY,
-    WEEKLY,
-    CUSTOM
-}
-
-public class RequestEventDto {
-    @JsonProperty("date")
+public class EventGroupRequestDto {
     private LocalDate date;
-    @JsonProperty("time")
     private LocalTime time;
-    @JsonProperty("description")
-    @NotEmpty
-    @Size(max = 20)
     private String description;
-    @JsonProperty("replay")
-    private Replay replay;
+    @JsonProperty("section_id")
+    private UUID sectionId;
+    private ReplayDto replay;
 
-    public RequestEventDto(LocalDate date, LocalTime time, String description, Replay replay) {
+    public EventGroupRequestDto() {
+    }
+
+    public EventGroupRequestDto(LocalDate date, LocalTime time, String description, UUID sectionId, ReplayDto replay) {
         this.date = date;
         this.time = time;
         this.description = description;
+        this.sectionId = sectionId;
         this.replay = replay;
     }
 
@@ -56,11 +49,19 @@ public class RequestEventDto {
         this.description = description;
     }
 
-    public Replay getReplay() {
+    public UUID getSectionId() {
+        return sectionId;
+    }
+
+    public void setSectionId(UUID sectionId) {
+        this.sectionId = sectionId;
+    }
+
+    public ReplayDto getReplay() {
         return replay;
     }
 
-    public void setReplay(Replay replay) {
+    public void setReplay(ReplayDto replay) {
         this.replay = replay;
     }
 }
