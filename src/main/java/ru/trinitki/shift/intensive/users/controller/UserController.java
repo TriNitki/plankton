@@ -49,7 +49,7 @@ public class UserController {
     })
     @PostMapping(value = "/login")
     public ResponseEntity<LogInResponseDto> login(@Valid @RequestBody LogInRequestDto user) {
-        return ResponseEntity.ok(Mocks.userLogIn(user));
+        return ResponseEntity.ok(this.usersService.login(user));
     }
 
     @Operation(summary = "api.plankton.user.retrieve.summary")

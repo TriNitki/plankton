@@ -48,11 +48,9 @@ public class Users {
         this.email = email;
     }
 
-
     public Boolean getActive() {
         return this.isActive;
     }
-
 
     public void setActive(Boolean active) {
         this.isActive = active;

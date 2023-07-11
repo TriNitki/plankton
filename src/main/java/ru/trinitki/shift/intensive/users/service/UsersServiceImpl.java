@@ -48,6 +48,7 @@ public class UsersServiceImpl implements UsersService {
     @Override
     public RetrieveResponseDto find(UUID id) {
         Users user = this.usersRepository.findByKey_Id(id);
+        System.out.println(id);
         return new RetrieveResponseDto(user.getFullName(), user.getEmail(), user.getActive(), user.getId());
     }
 
