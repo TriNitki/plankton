@@ -7,5 +7,4 @@ import java.util.UUID;
 
 public interface UsersRepository extends CassandraRepository<Users, Users.Key> {
     Users findByKey_Id(UUID id);
-    //Users findByKey_Email(String email);
 }

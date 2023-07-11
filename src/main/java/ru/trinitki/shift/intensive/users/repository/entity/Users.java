@@ -50,7 +50,6 @@ public class Users {
         return this.isActive;
     }
 
-
     public void setActive(Boolean active) {
         this.isActive = active;
     }

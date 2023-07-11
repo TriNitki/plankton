@@ -71,7 +71,7 @@ public class UsersServiceImpl implements UsersService {
         validateUser(id, token);
 
         Users user = this.usersRepository.findByKey_Id(id);
-
+      
         return new RetrieveResponseDto(user.getFullName(), user.getEmail(), user.getActive(), user.getId());
     }
 
