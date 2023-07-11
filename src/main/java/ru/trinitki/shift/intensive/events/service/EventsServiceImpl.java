@@ -17,16 +17,15 @@ public class EventsServiceImpl implements EventsService {
     }
 
     @Override
-    public EventResponseDto create(EventRequestDto eventDto) {
+    public EventResponseDto create(EventRequestDto eventDto, UUID ownerId) {
         Events event = new Events();
 
-        event.setOwnerId(eventDto.getOwnerId());
+        event.setOwnerId(ownerId);
         event.setDate(eventDto.getDate());
         event.setTime(eventDto.getTime());
         event.setDescription(eventDto.getDescription());
         event.setEventId(UUID.randomUUID());
         event.setEventGroupId(UUID.randomUUID());
-        event.setSectionId(null);
 
         this.eventsRepository.save(event);
         return new EventResponseDto(event.getOwnerId(), event.getDate(), event.getTime(), event.getDescription(), event.getEventId(), event.getEventGroupId(), event.getSectionId());

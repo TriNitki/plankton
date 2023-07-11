@@ -12,6 +12,8 @@ import ru.trinitki.shift.intensive.events.dto.EventRequestDto;
 import ru.trinitki.shift.intensive.events.dto.EventResponseDto;
 import ru.trinitki.shift.intensive.events.service.EventsService;
 
+import java.util.UUID;
+
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
 @Validated
@@ -31,8 +33,8 @@ public class EventController {
             @ApiResponse(responseCode = "200", description = "Ивент был создан")
     })
     @PostMapping(consumes = APPLICATION_JSON_VALUE)
-    public ResponseEntity<EventResponseDto> create(@Valid @RequestBody EventRequestDto event) {
-        return ResponseEntity.ok(this.eventsService.create(event));
+    public ResponseEntity<EventResponseDto> create(@RequestHeader("token") String token, @Valid @RequestBody EventRequestDto event) {
+        return ResponseEntity.ok(this.eventsService.create(event, UUID.fromString(token)));
     }
 
 }
