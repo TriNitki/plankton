@@ -1,7 +1,5 @@
 package ru.trinitki.shift.intensive.users.repository.entity;
 
-import com.fasterxml.jackson.annotation.JsonGetter;
-import com.fasterxml.jackson.annotation.JsonSetter;
 import org.springframework.data.cassandra.core.cql.PrimaryKeyType;
 import org.springframework.data.cassandra.core.mapping.*;
 
@@ -10,7 +8,7 @@ import java.util.UUID;
 @Table(value = "users")
 public class Users {
     @PrimaryKey
-    private final Key key = new Key();
+    private Key key = new Key();
     @Column(value = "access_token")
     private String accessToken;
     @Column(value = "full_name")
