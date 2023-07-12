@@ -42,6 +42,7 @@ public class UsersServiceImpl implements UsersService {
         user.setId(token);
         user.setAccessToken(token.toString());
         this.usersRepository.save(user);
+
         IdByEmail byEmail = new IdByEmail();
         byEmail.setEmail(user.getEmail());
         byEmail.setId(user.getId());
