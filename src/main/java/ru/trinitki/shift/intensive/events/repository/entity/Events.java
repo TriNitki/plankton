@@ -17,9 +17,6 @@ public class Events {
     private UUID ownerId;
     @Column(value = "event_group_id")
     private UUID eventGroupId;
-    @Column(value = "section_id")
-    private UUID sectionId;
-    @Column
     private LocalTime time;
     @Column
     private LocalDate date;
@@ -71,14 +68,6 @@ public class Events {
 
     public void setEventId(UUID eventId) {
         this.key.eventId = eventId;
-    }
-
-    public UUID getSectionId() {
-        return this.sectionId;
-    }
-
-    public void setSectionId(UUID sectionId) {
-        this.sectionId = sectionId;
     }
 
     public LocalTime getTime() {

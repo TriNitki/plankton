@@ -1,18 +1,10 @@
-package ru.trinitki.shift.intensive.events.dto;
+package ru.trinitki.shift.intensive.events.dto.EventGroup;
 
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.time.LocalDate;
 import java.util.Set;
-
-enum ReplayType {
-    DAILY,
-    WEEKLY,
-    MONTHLY,
-    YEARLY,
-    CUSTOM
-}
 
 public class ReplayDto {
     @JsonProperty("replay_type")

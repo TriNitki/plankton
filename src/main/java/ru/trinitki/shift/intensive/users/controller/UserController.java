@@ -63,7 +63,7 @@ public class UserController {
             @ApiResponse(responseCode = "500", description = "api.plankton.error.server", content = {@Content(schema = @Schema(implementation = ErrorResponse.class))})
     })
     @GetMapping(value = "/user/{id}")
-    public ResponseEntity<RetrieveResponseDto> retrieve(@RequestHeader("token") String token, @PathVariable UUID id) {
+    public ResponseEntity<RetrieveResponseDto> retrieve(@RequestHeader("access-token") String token, @PathVariable UUID id) {
         return ResponseEntity.ok(this.usersService.find(id, token));
     }
 
@@ -77,7 +77,7 @@ public class UserController {
             @ApiResponse(responseCode = "500", description = "api.plankton.error.server", content = {@Content(schema = @Schema(implementation = ErrorResponse.class))})
     })
     @PatchMapping(value = "/user/{id}")
-    public ResponseEntity<UpdateResponseDto> update(@RequestHeader("token") String token, @PathVariable UUID id, @Valid @RequestBody UpdateRequestDto user) {
+    public ResponseEntity<UpdateResponseDto> update(@RequestHeader("access-token") String token, @PathVariable UUID id, @Valid @RequestBody UpdateRequestDto user) {
         return ResponseEntity.ok(this.usersService.update(id, user, token));
     }
 
@@ -90,7 +90,7 @@ public class UserController {
             @ApiResponse(responseCode = "500", description = "api.plankton.error.server", content = {@Content(schema = @Schema(implementation = ErrorResponse.class))})
     })
     @DeleteMapping(value = "/user/{id}")
-    public ResponseEntity<Void> delete(@RequestHeader("token") String token, @PathVariable UUID id) {
+    public ResponseEntity<Void> delete(@RequestHeader("access-token") String token, @PathVariable UUID id) {
         UpdateRequestDto user = new UpdateRequestDto();
         user.setActive(Boolean.FALSE);
         this.usersService.update(id, user, token);

@@ -1,4 +1,4 @@
-package ru.trinitki.shift.intensive.events.dto;
+package ru.trinitki.shift.intensive.events.dto.Event;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -6,19 +6,19 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.UUID;
 
-public class EventResponseDto extends EventRequestDto {
+public class EventCreateResponseDto extends EventCreateRequestDto {
     @JsonProperty("event_id")
     private final UUID eventId;
     @JsonProperty("event_group_id")
     private final UUID eventGroupId;
-    @JsonProperty("section_id")
-    private final UUID sectionId;
+    @JsonProperty("owner_id")
+    private final UUID ownerId;
 
-    public EventResponseDto(UUID ownerId, LocalDate date, LocalTime time, String description, UUID eventId, UUID eventGroupId, UUID sectionId) {
-        super(ownerId, date, time, description);
+    public EventCreateResponseDto(UUID ownerId, LocalDate date, LocalTime time, String description, UUID eventId, UUID eventGroupId, UUID sectionId) {
+        super(date, time, description, sectionId);
+        this.ownerId = ownerId;
         this.eventId = eventId;
         this.eventGroupId = eventGroupId;
-        this.sectionId = sectionId;
     }
 
     public UUID getEventId() {
@@ -29,7 +29,7 @@ public class EventResponseDto extends EventRequestDto {
         return eventGroupId;
     }
 
-    public UUID getSectionId() {
-        return sectionId;
+    public UUID getOwnerId() {
+        return ownerId;
     }
 }

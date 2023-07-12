@@ -1,23 +1,29 @@
-package ru.trinitki.shift.intensive.events.dto;
+package ru.trinitki.shift.intensive.events.dto.EventGroup;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.UUID;
 
-public class EventGroupRequestDto {
+public class EventGroupCreateRequestDto {
+    @NotNull
     private LocalDate date;
+    @NotNull
     private LocalTime time;
+    @NotEmpty
     private String description;
     @JsonProperty("section_id")
     private UUID sectionId;
+    @NotEmpty
     private ReplayDto replay;
 
-    public EventGroupRequestDto() {
+    public EventGroupCreateRequestDto() {
     }
 
-    public EventGroupRequestDto(LocalDate date, LocalTime time, String description, UUID sectionId, ReplayDto replay) {
+    public EventGroupCreateRequestDto(LocalDate date, LocalTime time, String description, UUID sectionId, ReplayDto replay) {
         this.date = date;
         this.time = time;
         this.description = description;

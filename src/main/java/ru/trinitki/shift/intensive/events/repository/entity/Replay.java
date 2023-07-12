@@ -1,22 +1,19 @@
 package ru.trinitki.shift.intensive.events.repository.entity;
 
+import org.springframework.data.cassandra.core.mapping.Column;
 import org.springframework.data.cassandra.core.mapping.UserDefinedType;
+import ru.trinitki.shift.intensive.events.dto.EventGroup.ReplayType;
 
 import java.time.LocalDate;
 import java.util.Set;
 
-enum ReplayType {
-    DAILY,
-    WEEKLY,
-    MONTHLY,
-    YEARLY,
-    CUSTOM
-}
-
 @UserDefinedType("replay")
 public class Replay {
+    @Column("replay_type")
     private ReplayType replayType;
+    @Column("start_date")
     private LocalDate startDate;
+    @Column("end_date")
     private LocalDate endDate;
     private Set<LocalDate> dates;
 

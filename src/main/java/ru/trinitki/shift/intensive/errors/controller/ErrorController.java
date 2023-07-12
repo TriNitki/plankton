@@ -78,7 +78,7 @@ public class ErrorController {
     }
 
     protected ResponseEntity<ErrorResponse> handleBindValidationException(BindException exception) {
-        String message = IntStream.range(0, exception.getErrorCount()).mapToObj(i -> i + 1 + "." + exception.getAllErrors().get(i).getDefaultMessage()).collect(Collectors.joining("; "));
+        String message = IntStream.range(0, exception.getErrorCount()).mapToObj(i -> exception.getAllErrors().get(i).getDefaultMessage()).collect(Collectors.joining("; "));
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(body(message, 400));
     }
 
