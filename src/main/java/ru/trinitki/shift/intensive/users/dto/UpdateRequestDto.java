@@ -3,7 +3,6 @@ package ru.trinitki.shift.intensive.users.dto;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonSetter;
-import jakarta.validation.constraints.NotEmpty;
 
 public class UpdateRequestDto {
     @JsonProperty("full_name")

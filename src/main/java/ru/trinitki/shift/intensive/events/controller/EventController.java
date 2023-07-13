@@ -17,7 +17,6 @@ import ru.trinitki.shift.intensive.errors.controller.ErrorController;
 import ru.trinitki.shift.intensive.events.dto.Event.*;
 import ru.trinitki.shift.intensive.events.exception.EventIntervalBadRequestException;
 import ru.trinitki.shift.intensive.events.service.EventsService;
-import ru.trinitki.shift.intensive.users.exception.UserNotAuthorizedException;
 
 import java.time.LocalDate;
 import java.util.List;

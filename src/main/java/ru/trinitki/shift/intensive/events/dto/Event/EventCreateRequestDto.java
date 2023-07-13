@@ -1,12 +1,10 @@
 package ru.trinitki.shift.intensive.events.dto.Event;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.util.UUID;
 
 public class EventCreateRequestDto {
     @NotNull

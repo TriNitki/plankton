@@ -11,5 +11,6 @@ import java.util.UUID;
 public interface EventsRepository extends CassandraRepository<Events, Events.Key> {
     @AllowFiltering
     Events findByEventId(UUID eventId);
+
     List<Events> findAllByKey_OwnerIdAndKey_DateBetween(UUID ownerId, LocalDate startDate, LocalDate endDate);
 }

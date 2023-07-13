@@ -12,9 +12,6 @@ import org.springframework.web.bind.annotation.*;
 import ru.trinitki.shift.intensive.events.dto.EventGroup.EventGroupCreateRequestDto;
 import ru.trinitki.shift.intensive.events.dto.EventGroup.EventGroupCreateResponseDto;
 import ru.trinitki.shift.intensive.events.service.EventGroupsService;
-import ru.trinitki.shift.intensive.events.service.EventsService;
-
-import java.util.UUID;
 
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
