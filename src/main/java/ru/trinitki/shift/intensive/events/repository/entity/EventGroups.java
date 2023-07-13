@@ -26,13 +26,6 @@ public class EventGroups {
 
     @PrimaryKeyClass
     public static class Key {
-        @PrimaryKeyColumn(name = "event_group_id", type = PrimaryKeyType.PARTITIONED, ordinal = 0, value = "event_group_id")
-        private UUID eventGroupId;
-
-        public Key() {
-        }
-    }
-
     public UUID getEventGroupId() {
         return this.key.eventGroupId;
     }
@@ -87,5 +80,14 @@ public class EventGroups {
 
     public void setReplay(Replay replay) {
         this.replay = replay;
+    }
+
+    @PrimaryKeyClass
+    public static class Key {
+        @PrimaryKeyColumn(name = "event_group_id", type = PrimaryKeyType.PARTITIONED, ordinal = 0, value = "event_group_id")
+        private UUID eventGroupId;
+
+        public Key() {
+        }
     }
 }

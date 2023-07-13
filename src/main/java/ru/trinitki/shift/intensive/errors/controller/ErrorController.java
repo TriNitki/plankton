@@ -82,9 +82,6 @@ public class ErrorController {
         return handleCustomException(exception, HttpStatus.BAD_REQUEST);
     }
 
-    public record ErrorResponse(LocalDateTime timestamp, String message, int code) {
-    }
-
     protected ResponseEntity<ErrorResponse> handleCustomException(Exception exception, HttpStatus status) {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(body(exception.getMessage(), status.value()));
     }
@@ -108,5 +105,8 @@ public class ErrorController {
 
     private String message(String property) {
         return this.propertyResolverUtils.resolve(property, Locale.getDefault());
+    }
+
+    public record ErrorResponse(LocalDateTime timestamp, String message, int code) {
     }
 }

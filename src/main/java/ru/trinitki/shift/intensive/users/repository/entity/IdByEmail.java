@@ -12,15 +12,7 @@ public class IdByEmail {
     @Column
     private UUID id;
 
-    @PrimaryKeyClass
     public static class Key {
-        @PrimaryKeyColumn(name = "email", type = PrimaryKeyType.PARTITIONED, ordinal = 0)
-        private String email;
-
-        public Key() {
-        }
-    }
-
     public String getEmail() {
         return key.email;
     }
@@ -35,5 +27,14 @@ public class IdByEmail {
 
     public void setId(UUID id) {
         this.id = id;
+    }
+
+    @PrimaryKeyClass
+    public static class Key {
+        @PrimaryKeyColumn(name = "email", type = PrimaryKeyType.PARTITIONED, ordinal = 0)
+        private String email;
+
+        public Key() {
+        }
     }
 }
