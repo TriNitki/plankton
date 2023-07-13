@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.UUID;
 
 public interface EventsRepository extends CassandraRepository<Events, Events.Key> {
-    Events findByKey_EventId(UUID eventId);
     @AllowFiltering
-    List<Events> findAllByDateBetweenAndOwnerId(LocalDate startDate, LocalDate endDate, UUID ownerId);
+    Events findByEventId(UUID eventId);
+    List<Events> findAllByKey_OwnerIdAndKey_DateBetween(UUID ownerId, LocalDate startDate, LocalDate endDate);
 }

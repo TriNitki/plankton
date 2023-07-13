@@ -99,8 +99,6 @@ public class EventGroupsServiceImpl implements EventGroupsService {
                     ));
                 }
                 break;
-            case CUSTOM:
-                break;
             default:
                 throw new IllegalStateException("Unexpected value: " + eventGroup.getReplay().getReplayType());
         }

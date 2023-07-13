@@ -7,6 +7,8 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -63,21 +65,21 @@ public class UserController {
             @ApiResponse(responseCode = "500", description = "api.plankton.error.server", content = {@Content(schema = @Schema(implementation = ErrorResponse.class))})
     })
     @GetMapping(value = "/user/{id}")
-    public ResponseEntity<RetrieveResponseDto> retrieve(@RequestHeader("access-token") String token, @PathVariable UUID id) {
+    public ResponseEntity<RetrieveResponseDto> retrieve(@NotEmpty @RequestHeader("access-token") String token, @NotNull @PathVariable UUID id) {
         return ResponseEntity.ok(this.usersService.find(id, token));
     }
 
     @Operation(summary = "api.plankton.user.update.summary")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "api.plankton.user.update.api-response.200.description"),
-            @ApiResponse(responseCode = "400", description = "api.plankton.user.update.api-response.400.description", content = {@Content(schema = @Schema(implementation = ErrorResponse.class))}),
+            @ApiResponse(responseCode = "400", description = "api.plankton.error.bad-request", content = {@Content(schema = @Schema(implementation = ErrorResponse.class))}),
             @ApiResponse(responseCode = "401", description = "api.plankton.error.user-unauthorized", content = {@Content(schema = @Schema(implementation = ErrorResponse.class))}),
             @ApiResponse(responseCode = "403", description = "api.plankton.error.user-forbidden", content = {@Content(schema = @Schema(implementation = ErrorResponse.class))}),
             @ApiResponse(responseCode = "404", description = "api.plankton.user.update.api-response.404.description", content = {@Content(schema = @Schema(implementation = ErrorResponse.class))}),
             @ApiResponse(responseCode = "500", description = "api.plankton.error.server", content = {@Content(schema = @Schema(implementation = ErrorResponse.class))})
     })
     @PatchMapping(value = "/user/{id}")
-    public ResponseEntity<UpdateResponseDto> update(@RequestHeader("access-token") String token, @PathVariable UUID id, @Valid @RequestBody UpdateRequestDto user) {
+    public ResponseEntity<UpdateResponseDto> update(@NotEmpty @RequestHeader("access-token") String token, @NotNull @PathVariable UUID id, @Valid @RequestBody UpdateRequestDto user) {
         return ResponseEntity.ok(this.usersService.update(id, user, token));
     }
 
@@ -90,7 +92,7 @@ public class UserController {
             @ApiResponse(responseCode = "500", description = "api.plankton.error.server", content = {@Content(schema = @Schema(implementation = ErrorResponse.class))})
     })
     @DeleteMapping(value = "/user/{id}")
-    public ResponseEntity<Void> delete(@RequestHeader("access-token") String token, @PathVariable UUID id) {
+    public ResponseEntity<Void> delete(@NotEmpty @RequestHeader("access-token") String token, @NotNull @PathVariable UUID id) {
         UpdateRequestDto user = new UpdateRequestDto();
         user.setActive(Boolean.FALSE);
         this.usersService.update(id, user, token);

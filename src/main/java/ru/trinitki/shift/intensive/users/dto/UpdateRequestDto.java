@@ -6,12 +6,9 @@ import com.fasterxml.jackson.annotation.JsonSetter;
 import jakarta.validation.constraints.NotEmpty;
 
 public class UpdateRequestDto {
-    @NotEmpty
     @JsonProperty("full_name")
     private String fullName;
-    @NotEmpty
     private String email;
-    @NotEmpty
     @JsonProperty("is_active")
     private Boolean isActive;
 

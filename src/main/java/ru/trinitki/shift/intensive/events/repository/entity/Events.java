@@ -13,49 +13,50 @@ public class Events {
     private Key key = new Key();
     @Column
     private String description;
-    @Column(value = "owner_id")
-    private UUID ownerId;
     @Column(value = "event_group_id")
     private UUID eventGroupId;
-    private LocalTime time;
-    @Column
-    private LocalDate date;
+    @Column(value = "event_id")
+    private UUID eventId;
 
     public Events() {
     }
 
     public Events(UUID eventId, String description, UUID ownerId, UUID eventGroupId, LocalTime time, LocalDate date) {
-        this.key.eventId = eventId;
+        this.eventId = eventId;
         this.description = description;
-        this.ownerId = ownerId;
+        this.key.ownerId = ownerId;
         this.eventGroupId = eventGroupId;
-        this.time = time;
-        this.date = date;
+        this.key.time = time;
+        this.key.date = date;
     }
 
     @PrimaryKeyClass
     public static class Key {
-        @PrimaryKeyColumn(name = "event_id", type = PrimaryKeyType.PARTITIONED, ordinal = 0, value = "event_id")
-        private UUID eventId;
+        @PrimaryKeyColumn(name = "owner_id", type = PrimaryKeyType.PARTITIONED, ordinal = 0, value = "owner_id")
+        private UUID ownerId;
+        @PrimaryKeyColumn(name = "date", type = PrimaryKeyType.CLUSTERED, ordinal = 1, value = "date")
+        private LocalDate date;
+        @PrimaryKeyColumn(name = "time", type = PrimaryKeyType.CLUSTERED, ordinal = 2, value = "time")
+        private LocalTime time;
 
         public Key() {
         }
     }
 
     public UUID getOwnerId() {
-        return this.ownerId;
+        return this.key.ownerId;
     }
 
     public void setOwnerId(UUID ownerId) {
-        this.ownerId = ownerId;
+        this.key.ownerId = ownerId;
     }
 
     public LocalDate getDate() {
-        return this.date;
+        return this.key.date;
     }
 
     public void setDate(LocalDate date) {
-        this.date = date;
+        this.key.date = date;
     }
 
     public String getDescription() {
@@ -75,18 +76,18 @@ public class Events {
     }
 
     public UUID getEventId() {
-        return this.key.eventId;
+        return this.eventId;
     }
 
     public void setEventId(UUID eventId) {
-        this.key.eventId = eventId;
+        this.eventId = eventId;
     }
 
     public LocalTime getTime() {
-        return this.time;
+        return this.key.time;
     }
 
     public void setTime(LocalTime time) {
-        this.time = time;
+        this.key.time = time;
     }
 }

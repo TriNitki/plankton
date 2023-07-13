@@ -12,6 +12,8 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import ru.trinitki.shift.intensive.errors.CodeAbleException;
+import ru.trinitki.shift.intensive.events.exception.EventIntervalBadRequestException;
+import ru.trinitki.shift.intensive.events.exception.EventNotFoundException;
 import ru.trinitki.shift.intensive.users.exception.EmailConflictException;
 import ru.trinitki.shift.intensive.users.exception.UserForbiddenException;
 import ru.trinitki.shift.intensive.users.exception.UserNotAuthorizedException;
@@ -58,6 +60,16 @@ public class ErrorController {
     @ExceptionHandler(UserNotFoundException.class)
     public ResponseEntity<ErrorResponse> handleUserNotFoundException(UserNotFoundException exception) {
         return handleCodeAbleException(HttpStatus.NOT_FOUND, exception);
+    }
+
+    @ExceptionHandler(EventNotFoundException.class)
+    public ResponseEntity<ErrorResponse> handleEventNotFoundException(EventNotFoundException exception) {
+        return handleCodeAbleException(HttpStatus.NOT_FOUND, exception);
+    }
+
+    @ExceptionHandler(EventIntervalBadRequestException.class)
+    public ResponseEntity<ErrorResponse> handleEventIntervalBadRequestException(EventIntervalBadRequestException exception) {
+        return handleCodeAbleException(HttpStatus.BAD_REQUEST, exception);
     }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)

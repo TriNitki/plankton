@@ -3,6 +3,8 @@ package ru.trinitki.shift.intensive.events.controller;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotEmpty;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -33,7 +35,7 @@ public class EventGroupController {
             @ApiResponse(responseCode = "200", description = "New event group has been created")
     })
     @PostMapping
-    public ResponseEntity<EventGroupCreateResponseDto> create(@RequestHeader("token") String token, @RequestBody EventGroupCreateRequestDto eventGroup) {
+    public ResponseEntity<EventGroupCreateResponseDto> create(@NotEmpty @RequestHeader("access-token") String token, @Valid @RequestBody EventGroupCreateRequestDto eventGroup) {
         return ResponseEntity.ok(this.eventGroupsService.create(eventGroup, token));
     }
 }
