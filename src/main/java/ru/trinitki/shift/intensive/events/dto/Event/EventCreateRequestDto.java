@@ -15,14 +15,11 @@ public class EventCreateRequestDto {
     private final LocalTime time;
     @NotEmpty
     private final String description;
-    @JsonProperty("section_id")
-    private final UUID sectionId;
 
-    public EventCreateRequestDto(LocalDate date, LocalTime time, String description, UUID sectionId) {
+    public EventCreateRequestDto(LocalDate date, LocalTime time, String description) {
         this.date = date;
         this.time = time;
         this.description = description;
-        this.sectionId = sectionId;
     }
 
     public LocalDate getDate() {
@@ -35,9 +32,5 @@ public class EventCreateRequestDto {
 
     public String getDescription() {
         return description;
-    }
-
-    public UUID getSectionId() {
-        return sectionId;
     }
 }

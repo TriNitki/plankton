@@ -19,17 +19,16 @@ public class EventsServiceImpl implements EventsService {
 
     @Override
     public EventCreateResponseDto create(EventCreateRequestDto eventDto, String token) {
-        Events event = new Events();
+        Events event = createEvent(new Events(
+                UUID.randomUUID(),
+                eventDto.getDescription(),
+                UUID.fromString(token),
+                UUID.randomUUID(),
+                eventDto.getTime(),
+                eventDto.getDate()
+        ));
 
-        event.setOwnerId(UUID.fromString(token));
-        event.setDate(eventDto.getDate());
-        event.setTime(eventDto.getTime());
-        event.setDescription(eventDto.getDescription());
-        event.setEventId(UUID.randomUUID());
-        event.setEventGroupId(UUID.randomUUID());
-
-        this.eventsRepository.save(event);
-        return new EventCreateResponseDto(event.getOwnerId(), event.getDate(), event.getTime(), event.getDescription(), event.getEventId(), event.getEventGroupId(), eventDto.getSectionId());
+        return new EventCreateResponseDto(event.getOwnerId(), event.getDate(), event.getTime(), event.getDescription(), event.getEventId(), event.getEventGroupId());
     }
 
     @Override
@@ -62,5 +61,10 @@ public class EventsServiceImpl implements EventsService {
     public void delete(UUID eventID, String token) {
         Events event = this.eventsRepository.findByKey_EventId(eventID);
         this.eventsRepository.delete(event);
+    }
+
+    public Events createEvent(Events event) {
+        this.eventsRepository.save(event);
+        return event;
     }
 }

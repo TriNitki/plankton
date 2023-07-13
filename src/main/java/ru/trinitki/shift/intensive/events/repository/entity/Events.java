@@ -21,6 +21,18 @@ public class Events {
     @Column
     private LocalDate date;
 
+    public Events() {
+    }
+
+    public Events(UUID eventId, String description, UUID ownerId, UUID eventGroupId, LocalTime time, LocalDate date) {
+        this.key.eventId = eventId;
+        this.description = description;
+        this.ownerId = ownerId;
+        this.eventGroupId = eventGroupId;
+        this.time = time;
+        this.date = date;
+    }
+
     @PrimaryKeyClass
     public static class Key {
         @PrimaryKeyColumn(name = "event_id", type = PrimaryKeyType.PARTITIONED, ordinal = 0, value = "event_id")
