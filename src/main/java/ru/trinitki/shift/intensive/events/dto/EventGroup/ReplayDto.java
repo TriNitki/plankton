@@ -2,16 +2,20 @@ package ru.trinitki.shift.intensive.events.dto.EventGroup;
 
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import jakarta.validation.constraints.NotNull;
 
 import java.time.LocalDate;
 import java.util.Set;
 
 public class ReplayDto {
     @JsonProperty("replay_type")
+    @NotNull
     private ReplayType replayType;
     @JsonProperty("start_date")
+    @NotNull
     private LocalDate startDate;
     @JsonProperty("end_date")
+    @NotNull
     private LocalDate endDate;
     private Set<LocalDate> dates;
 

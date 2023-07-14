@@ -14,8 +14,8 @@ public class EventCreateResponseDto extends EventCreateRequestDto {
     @JsonProperty("owner_id")
     private final UUID ownerId;
 
-    public EventCreateResponseDto(UUID ownerId, LocalDate date, LocalTime time, String description, UUID eventId, UUID eventGroupId, UUID sectionId) {
-        super(date, time, description, sectionId);
+    public EventCreateResponseDto(UUID ownerId, LocalDate date, LocalTime time, String description, UUID eventId, UUID eventGroupId) {
+        super(date, time, description);
         this.ownerId = ownerId;
         this.eventId = eventId;
         this.eventGroupId = eventGroupId;

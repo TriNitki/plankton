@@ -8,9 +8,9 @@ import ru.trinitki.shift.intensive.users.exception.UserForbiddenException;
 import ru.trinitki.shift.intensive.users.exception.UserNotAuthorizedException;
 import ru.trinitki.shift.intensive.users.exception.UserNotFoundException;
 import ru.trinitki.shift.intensive.users.repository.IdByEmailRepository;
+import ru.trinitki.shift.intensive.users.repository.UsersRepository;
 import ru.trinitki.shift.intensive.users.repository.entity.IdByEmail;
 import ru.trinitki.shift.intensive.users.repository.entity.Users;
-import ru.trinitki.shift.intensive.users.repository.UsersRepository;
 
 import java.util.UUID;
 
@@ -31,7 +31,8 @@ public class UsersServiceImpl implements UsersService {
             if (this.usersRepository.findByKey_Id(this.idByEmailRepository.findByKey_Email(userDto.getEmail()).getId()) != null) {
                 throw new EmailConflictException();
             }
-        } catch (NullPointerException ignored) {}
+        } catch (NullPointerException ignored) {
+        }
 
         UUID token = UUID.randomUUID();
         Users user = new Users();
@@ -72,7 +73,7 @@ public class UsersServiceImpl implements UsersService {
         validateUser(id, token);
 
         Users user = this.usersRepository.findByKey_Id(id);
-      
+
         return new RetrieveResponseDto(user.getFullName(), user.getEmail(), user.getActive(), user.getId());
     }
 
@@ -82,13 +83,13 @@ public class UsersServiceImpl implements UsersService {
 
         Users user = this.usersRepository.findByKey_Id(id);
 
-        if (updateUser.getActive() != null){
+        if (updateUser.getActive() != null) {
             user.setActive(updateUser.getActive());
         }
-        if (updateUser.getEmail() != null){
+        if (updateUser.getEmail() != null) {
             user.setEmail(updateUser.getEmail());
         }
-        if (updateUser.getFullName() != null){
+        if (updateUser.getFullName() != null) {
             user.setFullName(updateUser.getFullName());
         }
         this.usersRepository.insert(user);

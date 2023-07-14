@@ -17,7 +17,7 @@ public class EventGroupCreateRequestDto {
     private String description;
     @JsonProperty("section_id")
     private UUID sectionId;
-    @NotEmpty
+    @NotNull
     private ReplayDto replay;
 
     public EventGroupCreateRequestDto() {

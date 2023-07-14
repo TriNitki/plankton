@@ -2,8 +2,14 @@ package ru.trinitki.shift.intensive.events.service;
 
 import org.springframework.stereotype.Service;
 import ru.trinitki.shift.intensive.events.dto.Event.*;
+import ru.trinitki.shift.intensive.events.exception.EventNotFoundException;
 import ru.trinitki.shift.intensive.events.repository.EventsRepository;
 import ru.trinitki.shift.intensive.events.repository.entity.Events;
+import ru.trinitki.shift.intensive.users.exception.UserForbiddenException;
+import ru.trinitki.shift.intensive.users.exception.UserNotAuthorizedException;
+import ru.trinitki.shift.intensive.users.exception.UserNotFoundException;
+import ru.trinitki.shift.intensive.users.repository.UsersRepository;
+import ru.trinitki.shift.intensive.users.repository.entity.Users;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -12,29 +18,43 @@ import java.util.UUID;
 @Service("EventsService")
 public class EventsServiceImpl implements EventsService {
     private final EventsRepository eventsRepository;
+    private final UsersRepository usersRepository;
 
-    public EventsServiceImpl(EventsRepository eventsRepository) {
+    public EventsServiceImpl(EventsRepository eventsRepository, UsersRepository usersRepository) {
         this.eventsRepository = eventsRepository;
+        this.usersRepository = usersRepository;
     }
 
     @Override
     public EventCreateResponseDto create(EventCreateRequestDto eventDto, String token) {
-        Events event = new Events();
+        validateToken(token);
 
-        event.setOwnerId(UUID.fromString(token));
-        event.setDate(eventDto.getDate());
-        event.setTime(eventDto.getTime());
-        event.setDescription(eventDto.getDescription());
-        event.setEventId(UUID.randomUUID());
-        event.setEventGroupId(UUID.randomUUID());
+        if (usersRepository.findByKey_Id(UUID.fromString(token)) == null) {
+            throw new UserNotFoundException();
+        }
 
-        this.eventsRepository.save(event);
-        return new EventCreateResponseDto(event.getOwnerId(), event.getDate(), event.getTime(), event.getDescription(), event.getEventId(), event.getEventGroupId(), eventDto.getSectionId());
+        Events event = createEvent(new Events(
+                UUID.randomUUID(),
+                eventDto.getDescription(),
+                UUID.fromString(token),
+                UUID.randomUUID(),
+                eventDto.getTime(),
+                eventDto.getDate()
+        ));
+
+        return new EventCreateResponseDto(event.getOwnerId(), event.getDate(), event.getTime(), event.getDescription(), event.getEventId(), event.getEventGroupId());
     }
 
     @Override
     public EventUpdateResponseDto update(EventUpdateRequestDto eventDto, UUID eventId, String token) {
-        Events event = this.eventsRepository.findByKey_EventId(eventId);
+        Events event = this.eventsRepository.findByEventId(eventId);
+
+        if (event == null) {
+            throw new EventNotFoundException();
+        }
+
+        validateUser(event.getOwnerId(), token);
+
         if (eventDto.getDescription() != null) {
             event.setDescription(eventDto.getDescription());
         }
@@ -51,7 +71,9 @@ public class EventsServiceImpl implements EventsService {
 
     @Override
     public List<EventDto> retrieve(LocalDate startDate, LocalDate endDate, String token) {
-        List<Events> events = this.eventsRepository.findAllByDateBetweenAndOwnerId(startDate, endDate, UUID.fromString(token));
+        validateToken(token);
+
+        List<Events> events = this.eventsRepository.findAllByKey_OwnerIdAndKey_DateBetween(UUID.fromString(token), startDate, endDate);
 
         return events.stream()
                 .map(event -> new EventDto(event.getEventId(), event.getEventGroupId(), event.getOwnerId(), event.getDate(), event.getTime(), event.getDescription()))
@@ -60,7 +82,41 @@ public class EventsServiceImpl implements EventsService {
 
     @Override
     public void delete(UUID eventID, String token) {
-        Events event = this.eventsRepository.findByKey_EventId(eventID);
+        Events event = this.eventsRepository.findByEventId(eventID);
+
+        if (event == null) {
+            throw new EventNotFoundException();
+        }
+
+        validateUser(event.getOwnerId(), token);
+
         this.eventsRepository.delete(event);
+    }
+
+    private void validateUser(UUID ownerId, String token) {
+        validateToken(token);
+
+        Users user = usersRepository.findByKey_Id(UUID.fromString(token));
+
+        if (user == null) {
+            throw new UserNotAuthorizedException();
+        }
+
+        if (!user.getId().equals(ownerId)) {
+            throw new UserForbiddenException();
+        }
+    }
+
+    private void validateToken(String token) {
+        try {
+            UUID.fromString(token);
+        } catch (Exception ignore) {
+            throw new UserNotAuthorizedException();
+        }
+    }
+
+    public Events createEvent(Events event) {
+        this.eventsRepository.save(event);
+        return event;
     }
 }

@@ -1,0 +1,342 @@
+{
+	"info": {
+		"_postman_id": "a23462fd-b643-43eb-ac5f-67c92c320b07",
+		"name": "Plankton",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "27137116"
+	},
+	"item": [
+		{
+			"name": "User",
+			"item": [
+				{
+					"name": "Sign up",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"email\": \"string\",\r\n  \"password\": \"string\",\r\n  \"full_name\": \"string\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/signup",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"signup"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Log in",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"email\": \"string\",\r\n  \"password\": \"string\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/login",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Retrieve user data",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "access-token",
+								"value": "{{user_id}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/user/{{user_id}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"user",
+								"{{user_id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete (deactivate) user",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "access-token",
+								"value": "{{user_id}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/user/{{user_id}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"user",
+								"{{user_id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update user data",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "access-token",
+								"value": "{{user_id}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"email\": \"string\",\r\n  \"full_name\": \"string\",\r\n  \"is_active\": true\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/user/{{user_id}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"user",
+								"{{user_id}}"
+							],
+							"query": [
+								{
+									"key": "",
+									"value": null,
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Event",
+			"item": [
+				{
+					"name": "Create event",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "access-token",
+								"value": "{{user_id}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"date\": \"2023-01-01\",\r\n  \"time\": \"00:00:00\",\r\n  \"description\": \"string\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/event",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"event"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Retrieve events by time interval",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "access-token",
+								"value": "{{user_id}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/events?start_date={{start_date}}&end_date={{end_date}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"events"
+							],
+							"query": [
+								{
+									"key": "start_date",
+									"value": "{{start_date}}",
+									"description": "Not required"
+								},
+								{
+									"key": "end_date",
+									"value": "{{end_date}}",
+									"description": "Not required"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete event",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "access-token",
+								"value": "{{user_id}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/event/{{event_id}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"event",
+								"{{event_id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update event",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "access-token",
+								"value": "{{user_id}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"date\": \"2023-07-13\",\r\n  \"time\": \"00:00:00\",\r\n  \"description\": \"string\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/event/{{event_id}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"event",
+								"{{event_id}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Event group",
+			"item": [
+				{
+					"name": "Create group of events",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "access-token",
+								"value": "{{user_id}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"date\": \"2023-07-13\",\r\n  \"time\": \"00:00:00\",\r\n  \"description\": \"pipidastr\",\r\n  \"replay\": {\r\n    \"dates\": [\r\n      \"2023-07-13\"\r\n    ],\r\n    \"replay_type\": \"DAILY\",\r\n    \"start_date\": \"2023-07-13\",\r\n    \"end_date\": \"2023-07-20\"\r\n  },\r\n  \"section_id\": \"{{$randomUUID}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/event-group",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"event-group"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"variable": [
+		{
+			"key": "base_url",
+			"value": "http://localhost:8080/api"
+		},
+		{
+			"key": "user_id",
+			"value": "b4a5eb4a-25b8-4810-9638-dd92073d97f7"
+		},
+		{
+			"key": "start_date",
+			"value": "2023-01-01"
+		},
+		{
+			"key": "end_date",
+			"value": "2024-01-01"
+		}
+	]
+}
