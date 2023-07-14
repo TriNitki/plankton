@@ -20,7 +20,16 @@ public class Users {
     @Column(value = "is_active")
     private Boolean isActive;
 
+    @PrimaryKeyClass
     public static class Key {
+        @PrimaryKeyColumn(name = "id", type = PrimaryKeyType.PARTITIONED, ordinal = 0)
+        private UUID id;
+
+        public Key() {
+        }
+    }
+
+
     public UUID getId() {
         return this.key.id;
     }
@@ -44,7 +53,6 @@ public class Users {
     public void setActive(Boolean active) {
         this.isActive = active;
     }
-
     public String getAccessToken() {
         return accessToken;
     }
@@ -67,14 +75,5 @@ public class Users {
 
     public void setPassword(String password) {
         this.password = password;
-    }
-
-    @PrimaryKeyClass
-    public static class Key {
-        @PrimaryKeyColumn(name = "id", type = PrimaryKeyType.PARTITIONED, ordinal = 0)
-        private UUID id;
-
-        public Key() {
-        }
     }
 }

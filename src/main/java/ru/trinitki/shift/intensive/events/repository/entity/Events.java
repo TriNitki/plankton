@@ -30,7 +30,19 @@ public class Events {
         this.key.date = date;
     }
 
+    @PrimaryKeyClass
     public static class Key {
+        @PrimaryKeyColumn(name = "owner_id", type = PrimaryKeyType.PARTITIONED, ordinal = 0, value = "owner_id")
+        private UUID ownerId;
+        @PrimaryKeyColumn(name = "date", type = PrimaryKeyType.CLUSTERED, ordinal = 1, value = "date")
+        private LocalDate date;
+        @PrimaryKeyColumn(name = "time", type = PrimaryKeyType.CLUSTERED, ordinal = 2, value = "time")
+        private LocalTime time;
+
+        public Key() {
+        }
+    }
+
     public UUID getOwnerId() {
         return this.key.ownerId;
     }
@@ -77,18 +89,5 @@ public class Events {
 
     public void setTime(LocalTime time) {
         this.key.time = time;
-    }
-
-    @PrimaryKeyClass
-    public static class Key {
-        @PrimaryKeyColumn(name = "owner_id", type = PrimaryKeyType.PARTITIONED, ordinal = 0, value = "owner_id")
-        private UUID ownerId;
-        @PrimaryKeyColumn(name = "date", type = PrimaryKeyType.CLUSTERED, ordinal = 1, value = "date")
-        private LocalDate date;
-        @PrimaryKeyColumn(name = "time", type = PrimaryKeyType.CLUSTERED, ordinal = 2, value = "time")
-        private LocalTime time;
-
-        public Key() {
-        }
     }
 }
